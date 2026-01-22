@@ -22,6 +22,8 @@ Group: System/Libraries
 
 # Use Sonic-DE GitHub branch archive as source (requested)
 Source0: https://github.com/Sonic-DE/sonic-workspace/archive/refs/heads/%{gitbranch}.tar.gz#/sonic-workspace-%{version}.tar.gz
+Source1: org.kde.KWin.VirtualDesktopManager.xml
+# SHA1: 38d927c7e55317bd2eebca961eaa5daf178270df
 Summary: Various components needed to run a Plasma-based environment. Including fixes and improvements for X11 sessions.
 Obsoletes: simplesystray < %{EVRD}
 BuildRequires: cmake(Breeze)
@@ -287,6 +289,16 @@ Requires: %{libname} = %{EVRD}
 %description -n qml-org.kde.plasma.workspace
 The org.kde.plasma.workspace QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
+
+%prep
+%autosetup -n sonic-workspace-Plasma-6.5
+
+# Create a directory inside the build tree for vendored DBus XMLs
+mkdir -p _OMV_rpm_build/dbus
+
+# Install the vendored XML from ABF filestore
+install -m 0644 %{SOURCE1} \
+  _OMV_rpm_build/dbus/org.kde.kwin.VirtualKeyboard.xml
 
 %install -a
 
