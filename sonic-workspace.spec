@@ -182,17 +182,8 @@ Obsoletes: %{mklibname weather_ion} = 5.240.0
 Obsoletes: %{mklibname taskmanager} = 5.240.0
 Obsoletes: %{mklibname notificationmanager} = 5.240.0
 # Image/codec stack required by KImageFormats, Baloo, and Plasma
-Requires: libde265
-Requires: libheif
-Requires: lib64heif
 Requires: lib64openexrcore
 Requires: lib64openjph
-
-# VVC / H.266 codec stack
-Requires: lib64uvg266
-Requires: uvg266
-Requires: lib64vvdec
-Requires: lib64vvenc
 
 # HEVC/H.265 encoder/decoder
 Requires: kvazaar
