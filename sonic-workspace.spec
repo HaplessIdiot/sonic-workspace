@@ -22,6 +22,8 @@ Group: System/Libraries
 
 # Use Sonic-DE GitHub branch archive as source (requested)
 Source0: https://github.com/Sonic-DE/sonic-workspace/archive/refs/heads/%{gitbranch}.tar.gz#/sonic-workspace-%{version}.tar.gz
+Source1: org.kde.KWin.VirtualDesktopManager.xml
+# SHA1: 38d927c7e55317bd2eebca961eaa5daf178270df
 Summary: Various components needed to run a Plasma-based environment. Including fixes and improvements for X11 sessions.
 Obsoletes: simplesystray < %{EVRD}
 BuildRequires: cmake(Breeze)
@@ -291,18 +293,13 @@ components used by Plasma Workspace and the SDDM Breeze theme
 %prep
 %autosetup -n sonic-workspace-Plasma-6.5
 
-# Pull in the KWin DBus XML directly from upstream
-curl -L \
-  "https://invent.kde.org/plasma/kwin/-/raw/master/src/dbus/org.kde.kwin.VirtualKeyboard.xml" \
-  -o org.kde.kwin.VirtualKeyboard.xml
-
 # Create a directory inside the build tree for vendored DBus XMLs
 mkdir -p _OMV_rpm_build/dbus
 
-# Install the XML where CMake will look for it
-install -m 0644 org.kde.kwin.VirtualKeyboard.xml \
+# Install the vendored XML from ABF filestore
+install -m 0644 %{SOURCE1} \
   _OMV_rpm_build/dbus/org.kde.kwin.VirtualKeyboard.xml
-  
+
 %install -a
 
 # (tpg) fix autostart permissions
