@@ -144,7 +144,6 @@ BuildRequires: gettext
 # Both Plasma 5 and Plasma 6 provide
 # cmake(KPipeWire), cmake(KSysGuard) and friends
 BuildRequires: cmake(KPipeWire) >= 5.27.80
-BuildRequires: kwin
 BuildRequires: kwin-devel
 BuildRequires: cmake(KWinDBusInterface) >= 5.27.80
 BuildRequires: cmake(KSysGuard) >= 5.27.80
@@ -289,6 +288,21 @@ Requires: %{libname} = %{EVRD}
 The org.kde.plasma.workspace QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
 
+%prep
+%autosetup -n sonic-workspace-%{version}
+
+# Pull in the KWin DBus XML directly from upstream
+curl -L \
+  "https://invent.kde.org/plasma/kwin/-/raw/master/src/dbus/org.kde.kwin.VirtualKeyboard.xml" \
+  -o org.kde.kwin.VirtualKeyboard.xml
+
+# Create a directory inside the build tree for vendored DBus XMLs
+mkdir -p _OMV_rpm_build/dbus
+
+# Install the XML where CMake will look for it
+install -m 0644 org.kde.kwin.VirtualKeyboard.xml \
+  _OMV_rpm_build/dbus/org.kde.kwin.VirtualKeyboard.xml
+  
 %install -a
 
 # (tpg) fix autostart permissions
