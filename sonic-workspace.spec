@@ -289,7 +289,7 @@ The org.kde.plasma.workspace QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
 
 %prep
-%autosetup -n sonic-workspace-%{version}
+%autosetup -q -n sonic-workspace-Plasma-6.5
 
 # Pull in the KWin DBus XML directly from upstream
 curl -L \
