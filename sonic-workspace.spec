@@ -1,4 +1,4 @@
-%define devname %mklibname -d %{name}
+%define devname %mklibname -d %{name}-sonic
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "$(echo %{version} |cut -d. -f2)" -ge 80 -o "$(echo %{version} |cut -d. -f3)" -ge 80 ] && echo -n un; echo -n stable)
 #define git 20240222
@@ -11,7 +11,7 @@
 # Prevent auto-generated znver1 HEIF dependencies
 %global __requires_exclude ^lib(heif|de265).*
 
-%define libname %mklibname kworkspace6
+%define libname %mklibname kworkspace6-sonic
 
 Name: sonic-workspace
 Version: 6.5.5
@@ -156,10 +156,10 @@ Requires: kf6-qqc2-desktop-style
 Requires: qt6-qtimageformats
 # For dbus-send, used by plasma-ksplash-ready.service
 Requires: dbus-tools
-Requires: qml-org.kde.breeze.components = %{EVRD}
-Requires: qml-org.kde.plasma.private.sessions = %{EVRD}
-Requires: qml-org.kde.plasma.workspace = %{EVRD}
-Requires: qml-org.kde.plasma.private.clipboard = %{EVRD}
+Requires: sonic-qml-org.kde.breeze.components = %{EVRD}
+Requires: sonic-qml-org.kde.plasma.private.sessions = %{EVRD}
+Requires: sonic-qml-org.kde.plasma.workspace = %{EVRD}
+Requires: sonic-qml-org.kde.plasma.private.clipboard = %{EVRD}
 # for nightlight
 Requires: qml(QtPositioning)
 Requires: accountsservice
@@ -240,11 +240,11 @@ Requires: kf6-kidletime-x11
 Requires: libkscreen-x11
 # Renamed 2025-05-02 after 6.0
 %rename sonic-workspace
-%package -n lib64klipper6
+%package -n lib64klipper6-sonic
 Summary: Klipper library from Sonic Workspace
 Group: System/Libraries
 
-%description -n lib64klipper6
+%description -n lib64klipper6-sonic
 The Klipper shared library used by Sonic Workspace and related components.
 %files -n lib64klipper6
 %{_libdir}/libklipper.so.6*
@@ -252,39 +252,39 @@ The Klipper shared library used by Sonic Workspace and related components.
 %description x11
 X11 support for Plasma Workspace.
 
-%package -n qml-org.kde.breeze.components
+%package -n sonic-qml-org.kde.breeze.components
 Summary: The org.kde.breeze.components QML component
 Group: Graphical desktop/KDE
 Requires: plasma6-qqc2-breeze-style
 
-%description -n qml-org.kde.breeze.components
+%description -n sonic-qml-org.kde.breeze.components
 The org.kde.breeze.components QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
 
-%package -n qml-org.kde.plasma.private.clipboard
+%package -n sonic-qml-org.kde.plasma.private.clipboard
 Summary: The org.kde.plasma.private.clipboard QML component
 Group: Graphical desktop/KDE
 Requires: %{libname} = %{EVRD}
 
-%description -n qml-org.kde.plasma.private.clipboard
+%description -n sonic-qml-org.kde.plasma.private.clipboard
 The org.kde.plasma.private.clipboard QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
 
-%package -n qml-org.kde.plasma.private.sessions
+%package -n sonic-qml-org.kde.plasma.private.sessions
 Summary: The org.kde.plasma.private.sessions QML component
 Group: Graphical desktop/KDE
 Requires: %{libname} = %{EVRD}
 
-%description -n qml-org.kde.plasma.private.sessions
+%description -n sonic-qml-org.kde.plasma.private.sessions
 The org.kde.plasma.private.sessions QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
 
-%package -n qml-org.kde.plasma.workspace
+%package -n sonic-qml-org.kde.plasma.workspace
 Summary: The org.kde.plasma.workspace QML component
 Group: Graphical desktop/KDE
 Requires: %{libname} = %{EVRD}
 
-%description -n qml-org.kde.plasma.workspace
+%description -n sonic-qml-org.kde.plasma.workspace
 The org.kde.plasma.workspace QML component contains QML
 components used by Plasma Workspace and the SDDM Breeze theme
 
@@ -506,7 +506,7 @@ rm -rf %{buildroot}%{_builddir}
 %{_libdir}/libbatterycontrol.so*
 %{_libdir}/libkrdb.so
 
-%files -n qml-org.kde.plasma.workspace
+%files -n sonic-qml-org.kde.plasma.workspace
 %dir %{_qtdir}/qml/org/kde/plasma/workspace
 %{_qtdir}/qml/org/kde/plasma/workspace/components
 %{_qtdir}/qml/org/kde/plasma/workspace/keyboardlayout
@@ -515,13 +515,13 @@ rm -rf %{buildroot}%{_builddir}
 %{_qtdir}/qml/org/kde/plasma/private/battery
 %{_qtdir}/qml/org/kde/plasma/private/keyboardindicator
 
-%files -n qml-org.kde.breeze.components
+%files -n sonic-qml-org.kde.breeze.components
 %{_qtdir}/qml/org/kde/breeze/components
 
-%files -n qml-org.kde.plasma.private.clipboard
+%files -n sonic-qml-org.kde.plasma.private.clipboard
 %{_qtdir}/qml/org/kde/plasma/private/clipboard
 
-%files -n qml-org.kde.plasma.private.sessions
+%files -n sonic-qml-org.kde.plasma.private.sessions
 %{_qtdir}/qml/org/kde/plasma/private/sessions
 
 %files x11
