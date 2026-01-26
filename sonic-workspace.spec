@@ -240,13 +240,13 @@ Requires: kf6-kidletime-x11
 Requires: libkscreen-x11
 # Renamed 2025-05-02 after 6.0
 %rename sonic-workspace
-%package -n lib64klipper6-sonic
+%package -n %{_lib}klipper6-sonic
 Summary: Klipper library from Sonic Workspace
 Group: System/Libraries
 
 %description -n lib64klipper6-sonic
 The Klipper shared library used by Sonic Workspace and related components.
-%files -n lib64klipper6-sonic
+%files -n %{_lib}klipper6-sonic
 %{_libdir}/libklipper.so.6*
 
 %description x11
