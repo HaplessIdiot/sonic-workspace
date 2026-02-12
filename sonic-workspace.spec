@@ -12,6 +12,7 @@
 %global __requires_exclude ^lib(heif|de265).*
 
 %define libname %mklibname kworkspace6-sonic
+%define libklipper %mklibname klipper-sonic
 
 Name: sonic-workspace
 Version: 6.5.5
@@ -186,11 +187,11 @@ Obsoletes: %{mklibname weather_ion} = 5.240.0
 Obsoletes: %{mklibname taskmanager} = 5.240.0
 Obsoletes: %{mklibname notificationmanager} = 5.240.0
 # Image/codec stack required by KImageFormats, Baloo, and Plasma
-Requires: lib64openexrcore
-Requires: lib64openjph
+Requires: %mklibname openexrcore
+Requires: %mklibname openjph
+# Make sure we have sonic's libklipper instead of Plasma's
+Requires: %{libklipper} = %{EVRD}
 
-# Renamed 2025-05-02 after 6.0
-%rename plasma6-workspace
 BuildSystem: cmake
 BuildOption: -DBUILD_QCH:BOOL=ON
 BuildOption: -DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
@@ -219,8 +220,6 @@ Summary: Development files for the KDE Plasma workspace
 Group: Development/KDE and Qt
 Requires: %{name} = %{EVRD}
 Requires: %{libname} = %{EVRD}
-# Renamed 2025-05-02 after 6.0
-%rename sonic-workspace-devel
 
 %description -n %{devname}
 Development files for the KDE Plasma workspace.
@@ -238,15 +237,16 @@ Requires: iso-codes
 Requires: sonic-win
 Requires: kf6-kidletime-x11
 Requires: libkscreen-x11
-# Renamed 2025-05-02 after 6.0
-%rename sonic-workspace
-%package -n lib64klipper6-sonic
+
+%package -n %{libklipper}
 Summary: Klipper library from Sonic Workspace
 Group: System/Libraries
+Conflicts: %mklibname klipper
 
-%description -n lib64klipper6-sonic
+%description -n %{libklipper}
 The Klipper shared library used by Sonic Workspace and related components.
-%files -n lib64klipper6
+
+%files -n %{libklipper}
 %{_libdir}/libklipper.so.6*
 
 %description x11
@@ -265,6 +265,7 @@ components used by Plasma Workspace and the SDDM Breeze theme
 Summary: The org.kde.plasma.private.clipboard QML component
 Group: Graphical desktop/KDE
 Requires: %{libname} = %{EVRD}
+Requires: %{libklipper} = %{EVRD}
 
 %description -n sonic-qml-org.kde.plasma.private.clipboard
 The org.kde.plasma.private.clipboard QML component contains QML
