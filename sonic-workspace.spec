@@ -2,7 +2,7 @@
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "$(echo %{version} |cut -d. -f2)" -ge 80 -o "$(echo %{version} |cut -d. -f3)" -ge 80 ] && echo -n un; echo -n stable)
 #define git 20240222
-%define gitbranch Plasma/6.5
+%define gitbranch Plasma/6.6
 %define gitbranchd %(echo %{gitbranch} |sed -e "s,/,-,g")
 
 # filter qml/plugins provides
@@ -15,8 +15,8 @@
 %define libklipper %mklibname klipper-sonic
 
 Name: sonic-workspace
-Version: 6.5.5
-Release: %{?git:0.%{git}.}4
+Version: 6.6
+Release: %{?git:0.%{git}.}1
 URL: https://github.com/Sonic-DE/sonic-workspace
 License: GPL
 Group: System/Libraries
